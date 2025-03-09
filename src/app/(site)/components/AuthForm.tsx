@@ -63,11 +63,11 @@ const AuthForm = () => {
             >
                 {variant === 'REGISTER' && 
                 (
-        <Input errors={errors} register={register} id='name' label='Name'/>
+        <Input disabled={isLoading} errors={errors} register={register} id='name' label='Name'/>
     )
 }
-        <Input errors={errors} register={register} id='email' label='Email Address' type='email'/>
-        <Input errors={errors} register={register} id='password' label='Password' type='password'/>
+        <Input disabled={isLoading} errors={errors} register={register} id='email' label='Email Address' type='email'/>
+        <Input disabled={isLoading} errors={errors} register={register} id='password' label='Password' type='password'/>
 
         <div>
             <Button
