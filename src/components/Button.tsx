@@ -21,10 +21,11 @@ const Button : React.FC<ButtonProps> = ({type,fullWidth,children,onClick,seconda
     type={type}
     disabled={disabled}
     className={clsx(`
-        flex justify-center rounded-lg py-2 px-3 text-sm font-semibold cursor-pointer
+        flex justify-center rounded-lg py-2 px-3 text-sm font-semibold
          focus-visible:outline-2 focus-visible:outline-offset-2
         ` ,
-    disabled && "opacity-50 cursor-default" , 
+    disabled && "opacity-50 cursor-not-allowed" , 
+    !disabled && "cursor-pointer" ,
     fullWidth && "w-full" , 
     danger && "bg-destructive/90 hover:bg-destructive focus-visible:outline-destructive" , 
     secondary ? "text-foreground" : "text-primary-foreground" ,

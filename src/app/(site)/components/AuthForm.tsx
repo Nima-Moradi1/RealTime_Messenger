@@ -74,7 +74,7 @@ const AuthForm = () => {
             disabled={isLoading}
             fullWidth
             type='submit'
-            >{variant === 'LOGIN' ? 'Sign in' : 'Register'}</Button>
+            >{isLoading ? "Loading ..." : variant === 'LOGIN' ? 'Sign in' : 'Register'}</Button>
         </div>
             </form>
             {/* this is a line seperator and the text between */}
