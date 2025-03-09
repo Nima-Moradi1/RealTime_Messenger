@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
+import AuthForm from './components/AuthForm'
 
 const page = () => {
   return (
@@ -10,13 +11,10 @@ const page = () => {
    >
     <Image src='/images/logo.png' alt='logo' height={100} width={100}
     className='mx-auto w-auto'/>
-    <h2
-    className='mt-6 text-center text-3xl font-bold tracking-tight text-gray-900'
-    >
-Sign in to Your Account
-    </h2>
+ 
    </div>
    {/* our authForm starts here */}
+   <AuthForm />
     </div>
   )
 }
