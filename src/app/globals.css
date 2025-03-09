@@ -1,6 +1,42 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/forms";
 
 html,body,
 :root {
   height:100%
+}
+
+@theme inline {
+  --color-background : var(--background); 
+  --color-foreground : var(--foreground); 
+  --color-primary : var(--primary); 
+  --color-primary-foreground : var(--primary-foreground); 
+  --color-destructive : var(--destructive); 
+  --color-destructive-foreground : var(--destructive-foreground); 
+  --color-gray : var(--gray) ;
+}
+
+@layer base {
+  :root {
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.15 0 270);
+    --primary: oklch(0.65 0.25 240);
+    --primary-foreground: oklch(0.98 0 210);
+    --secondary: oklch(0.94 0.02 210);
+    --secondary-foreground: oklch(0.3 0.05 220);
+    --destructive: oklch(0.6 0.25 25);
+    --destructive-foreground: oklch(0.98 0 210);
+    --gray : oklch(0.84 0.02 250) ;
+  }
+
+  .dark {
+    --background: oklch(0.15 0 270);
+    --foreground: oklch(0.98 0 210);
+    --primary: oklch(0.7 0.25 230);
+    --primary-foreground: oklch(0.3 0.05 220);
+    --secondary: oklch(0.3 0.05 220);
+    --secondary-foreground: oklch(0.98 0 210);
+    --destructive: oklch(0.4 0.2 25);
+    --destructive-foreground: oklch(0.98 0 210);
+  }
 }
