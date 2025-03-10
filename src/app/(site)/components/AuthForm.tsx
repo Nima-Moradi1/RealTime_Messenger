@@ -1,15 +1,28 @@
 'use client'
 
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import Input from '@/components/inputs/Input'
 import Button from '@/components/Button'
 import AuthSocialButton from './AuthSocialButton'
 import { BsGithub, BsGoogle } from 'react-icons/bs'
+import axios from 'axios'
+import toast from 'react-hot-toast'
+import { signIn, useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 type Variant = 'LOGIN' | 'REGISTER'
 
 const AuthForm = () => {
+
+    //Here, we check if the user is authenticated to redirect it (save user auth by context)
+    const router = useRouter()
+    const session = useSession()
+    useEffect(()=> {
+        if(session?.status === 'authenticated') {
+            router.push('/users')
+        }
+    },[session?.status,router])
 
     const [variant,setVariant] = React.useState<Variant>('LOGIN')
     const [isLoading , setIsLoading] = React.useState(false)
@@ -18,7 +31,7 @@ const AuthForm = () => {
         if(variant === 'LOGIN'){
             setVariant('REGISTER')
         }else {
-            setVariant('REGISTER')
+            setVariant('LOGIN')
         }
     },[variant]) ;
 
@@ -33,16 +46,47 @@ const AuthForm = () => {
 
     const onSubmit : SubmitHandler<FieldValues> = (data) => {
         setIsLoading(true)
-        if(variant === 'REGISTER') {
-            // Axios register
+         if(variant === 'REGISTER') {
+            // We use Axios and register api
+            axios.post('/api/register' , data)
+            .then(()=> signIn('credentials',data))
+            .catch(()=> toast.error('Something went wrong!'))
+            .finally(()=> setIsLoading(false))
         } else {
             //Next auth SignIn function 
+            signIn('credentials' , {
+                ...data , 
+                redirect : false
+            })
+            .then((callback)=> {
+                if(callback?.error) {
+                    toast.error('Invalid Credentials')
+                }
+                if(callback?.ok && !callback?.error) {
+                    toast.success('Successfully Logged In!')
+                    router.push('/users')
+                }
+            })
+            .finally(()=> setIsLoading(false))
         }
     }
 
     const socialAction = (action : string) => {
         setIsLoading(true)
         // Nextauth Social SignIn
+        signIn(action , {
+            redirect: false
+        })
+        .then((callback)=> {
+            if(callback?.error) {
+                toast.error('Invalid Credentials')
+            }
+            if(callback?.ok && !callback?.error) {
+                toast.success('Successfully Logged In!')
+                router.push('/users')
+            }
+        })
+        .finally(()=> setIsLoading(false))
     }
 
   return (
@@ -66,8 +110,8 @@ const AuthForm = () => {
         <Input disabled={isLoading} errors={errors} register={register} id='name' label='Name'/>
     )
 }
-        <Input disabled={isLoading} errors={errors} register={register} id='email' label='Email Address' type='email'/>
-        <Input disabled={isLoading} errors={errors} register={register} id='password' label='Password' type='password'/>
+        <Input  errors={errors} register={register} id='email' label='Email Address' type='email'/>
+        <Input  errors={errors} register={register} id='password' label='Password' type='password'/>
 
         <div>
             <Button
