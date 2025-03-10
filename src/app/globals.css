@@ -14,6 +14,7 @@ html,body,
   --color-destructive : var(--destructive); 
   --color-destructive-foreground : var(--destructive-foreground); 
   --color-gray : var(--gray) ;
+  --color-gray-2 : var(--gray-2);
 }
 
 @layer base {
@@ -27,6 +28,7 @@ html,body,
     --destructive: oklch(0.6 0.25 25);
     --destructive-foreground: oklch(0.98 0 210);
     --gray : oklch(0.84 0.02 250) ;
+    --gray-2 :  oklch(97.22% 0.004 261.43);
   }
 
   .dark {
@@ -38,5 +40,17 @@ html,body,
     --secondary-foreground: oklch(0.98 0 210);
     --destructive: oklch(0.4 0.2 25);
     --destructive-foreground: oklch(0.98 0 210);
+    --gray: oklch(60.57% 0.007 262.06);
+    --gray-2 :  oklch(52.12% 0.006 262.39);
+
   }
+}
+
+
+* {
+  -ms-overflow-style: none; 
+  scrollbar-width: none; 
+}
+*::-webkit-scrollbar { 
+  display: none;
 }
