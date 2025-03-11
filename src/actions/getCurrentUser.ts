@@ -14,7 +14,7 @@ const getCurrentUser = async ()=> {
                 email : session?.user?.email as string
             }
         })
-         if(currentUser) {
+         if(!currentUser) {
             return null
          }
          return currentUser ;
