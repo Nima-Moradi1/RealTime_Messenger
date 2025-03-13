@@ -6,16 +6,20 @@ import { FullConversationType } from '@/types'
 import clsx from 'clsx';
 import React, { useState } from 'react'
 import ConversationBox from "./ConversationBox";
+import GroupChatModal from "./GroupChatModal";
+import { User } from "@prisma/client";
 
-const ConversationList = ({initialItems}:{initialItems : FullConversationType[]}) => {
+const ConversationList = ({initialItems , users}:{initialItems : FullConversationType[] , users : User[]}) => {
 
-    const [items , setItems] = useState(initialItems) ;
+    const [items , setItems] = useState(initialItems);
+    const [isModalOpen , setIsModalOpen] = useState(false) ;
 
     const {conversationId,isOpen} = useConversation()
 
 
   return (
-    <aside
+    <><GroupChatModal users={users} isOpen={isModalOpen} onClose={()=> setIsModalOpen(false)}/>
+     <aside
     className={clsx(`
     fixed inset-y-0 pb-20 lg:pb-0 lg:left-20 lg:w-80 lg:block overflow-y-auto
     border-r border-gray-2/70 
@@ -32,7 +36,8 @@ const ConversationList = ({initialItems}:{initialItems : FullConversationType[]}
                 className='text-2xl font-bold text-foreground'>
                     Messages
                 </div>
-                <div className="rounded-full  bg-gray-2/40 cursor-pointer
+                <div onClick={()=> setIsModalOpen(true)}
+                 className="rounded-full  bg-gray-2/40 cursor-pointer
                 hover:opacity-70 transition">
                 <MdOutlineGroupAdd size={24}/>
                 </div>
@@ -42,6 +47,8 @@ const ConversationList = ({initialItems}:{initialItems : FullConversationType[]}
             ))}
         </div>
     </aside>
+    </>
+   
   )
 }
 
