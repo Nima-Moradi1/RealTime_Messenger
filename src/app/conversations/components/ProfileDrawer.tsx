@@ -9,6 +9,7 @@ import {IoClose} from 'react-icons/io5'
 import Avatar from '@/components/Avatar';
 import ConfirmModal from './ConfirmModal';
 import Button from '@/components/Button';
+import AvatarGroup from '@/components/AvatarGroup';
 
 
 interface ProfileDrawerProps {
@@ -84,7 +85,14 @@ const ProfileDrawer : React.FC<ProfileDrawerProps> = ({isOpen,data,onClose}) => 
                             <div className='relative mt-6 flex-1 px-4 sm:px-6'>
                                 <div className='flex flex-col items-center'>
                                     <div className='mb-3'>
-                                    <Avatar user={otherUser}/>
+                                        {
+                                            data.isGroup ? (
+                                            <AvatarGroup users={data.users}/>
+                                            ) : (
+                                            <Avatar user={otherUser}/>  
+                                            )
+                                        }
+                                    
                                     </div>
                                     <div>
                                     {title}
@@ -95,6 +103,25 @@ const ProfileDrawer : React.FC<ProfileDrawerProps> = ({isOpen,data,onClose}) => 
                                     <div className='w-full pb-5 pt-5 sm:px-0 sm:pt-0'>
                                 <dl
                                 className='space-y-8 px-4 sm:space-y-6 sm:px-6'>
+                                    {
+                                        data.isGroup && (
+                                            <div>
+                                                <dt
+                                                className='text-base font-medium text-foreground/70 sm:shrink-0 sm:w-40'>
+                                                    Members
+                                                </dt>
+                                                <dd
+                                                className='mt-1 text-sm text-foreground sm:col-span-2'>
+                                                    {data?.users?.map((user)=> (
+                                                        <div key={user?.id}
+                                                        className='flex flex-col gap-2 font-semibold'>
+                                                            {user?.email}
+                                                        </div>
+                                                    ))}
+                                                </dd>
+                                            </div>
+                                        )
+                                    }
                                     {!data.isGroup && (
                                         <div>
                                             <dt
@@ -128,7 +155,9 @@ const ProfileDrawer : React.FC<ProfileDrawerProps> = ({isOpen,data,onClose}) => 
                                     </div>
                                 </div>
                                 <Button fullWidth danger onClick={()=>setConfirmOpen(true)}>
-                                    Delete Chat
+                                 {
+                                    data.isGroup ? 'Delete Group' : 'Delete Chat'
+                                 }
                                 </Button>
                             </div>
                         </div>
