@@ -6,6 +6,7 @@ import { format } from 'date-fns'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import React from 'react'
+import ImageModal from './ImageModal'
 
 interface MessageBoxProps {
     data : FullMessageType
@@ -13,6 +14,7 @@ interface MessageBoxProps {
 }
 
 const MessageBox : React.FC<MessageBoxProps> = ({data , isLast}) => {
+    const [imageModalOpen , setImageModalOpen] = React.useState(false);
     const session = useSession()
     //since i included the sender in the getMessages() , here we can compare it to know if it's our message our others
     const isOwn = session?.data?.user?.email === data?.sender?.email
@@ -44,10 +46,13 @@ const MessageBox : React.FC<MessageBoxProps> = ({data , isLast}) => {
             </div>
             </div>
             <div className={message}>
+                <ImageModal src={data?.image} 
+                isOpen={imageModalOpen} onClose={()=> setImageModalOpen(false)}/>
                 {data?.image ? (
                     <Image alt='image' height={288} width={288}
+                    onClick={()=> setImageModalOpen(true)}
                     src={data?.image}
-                    className='object-cover hover:scale-105 transition translate' />
+                    className='object-cover hover:scale-105 transition translate cursor-pointer' />
                 ) : 
                 <p>{data?.body}</p>
                 }
