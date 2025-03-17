@@ -1,7 +1,7 @@
 import getCurrentUser from "@/actions/getCurrentUser";
 import { NextResponse } from "next/server";
 import prisma from '@/libs/prismadb'
-
+import { pusherServer } from "@/libs/pusher";
 
 export async function POST(request:Request) {
     try {
@@ -39,7 +39,9 @@ export async function POST(request:Request) {
                 sender : true
             }
         })
-            // this works with pusher to realtime update (not working now (we don't have pusher))
+        // PUSHER : we update the pusher from server here , the message:new for chat,
+        // and the conversation:update to update the sidebar which we use events in client-side
+        // to handle the real-time updates and append newMessages in client
         const updatedConversation = await prisma.conversation.update({
             where : {
                 id : conversationId
@@ -61,6 +63,14 @@ export async function POST(request:Request) {
                 }
             }
         })
+        await pusherServer.trigger(conversationId , 'message:new', newMessage)
+        const lastMessage = updatedConversation.messages[updatedConversation.messages.length - 1];
+        updatedConversation.users.map((user)=> (
+            pusherServer.trigger(user.email! , 'conversation:update' , {
+                id : conversationId , 
+                messages : [lastMessage]
+            })
+        ))
         //for now we use the newMessage since we don't have pusher to use updateConversation
         return NextResponse.json(newMessage)
 
