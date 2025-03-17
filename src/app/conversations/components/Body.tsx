@@ -4,6 +4,8 @@ import { FullMessageType } from '@/types'
 import React, { useEffect, useRef } from 'react'
 import MessageBox from './MessageBox';
 import axios from 'axios';
+import { pusherClient } from '@/libs/pusher';
+import { find } from 'lodash';
 
 
 interface BodyProps {
@@ -20,7 +22,32 @@ const Body : React.FC<BodyProps> = ({initialMessages}) => {
   useEffect(()=> {
     axios.post(`/api/conversations/${conversationId}/seen`)
   },[conversationId])
+  //Subscribe to pusher 
+  useEffect(()=> {
+    pusherClient.subscribe(conversationId) ;
+    bottomRef.current?.scrollIntoView();
 
+    const messageHandler = (message : FullMessageType) => {
+      axios.post(`/api/conversations/${conversationId}/seen`)
+      // We Simply Check if the new message that has arrived is already in the list of our
+      // Messages or not, so we Prevent message Duplicating.
+      setMessages((current)=> {
+        if(find(current , {id : message.id})) {
+          return current ;
+        }
+        return [...current , message];
+      })
+      bottomRef.current?.scrollIntoView();
+    }
+
+    pusherClient.bind('messages:new' , messageHandler) ;
+
+    //Cleanup function
+    return () => {
+      pusherClient.unsubscribe(conversationId)
+      pusherClient.unbind('messages:new' , messageHandler)
+    }
+  },[conversationId])
 
   return (
     <div className='flex-1 overflow-y-auto'>
