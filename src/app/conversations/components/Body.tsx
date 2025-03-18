@@ -39,13 +39,22 @@ const Body : React.FC<BodyProps> = ({initialMessages}) => {
       })
       bottomRef.current?.scrollIntoView();
     }
+    const updateMessageHandler = (newMsg : FullMessageType) => {
+      setMessages((current)=> current.map((msg)=> {
+        if(msg.id === newMsg.id) {
+          return newMsg;
+        }
+        return msg;
+      }))
+    }
 
     pusherClient.bind('messages:new' , messageHandler) ;
-
+    pusherClient.bind('messages:update' , updateMessageHandler);
     //Cleanup function
     return () => {
       pusherClient.unsubscribe(conversationId)
-      pusherClient.unbind('messages:new' , messageHandler)
+      pusherClient.unbind('messages:new' , messageHandler) ;
+      pusherClient.unbind('messages:update' , updateMessageHandler) ;
     }
   },[conversationId])
 
