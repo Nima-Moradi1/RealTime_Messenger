@@ -3,7 +3,7 @@
 
 import { NextApiRequest , NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/libs/authOptions";
 import { pusherServer } from "@/libs/pusher";
 
 
