@@ -17,7 +17,6 @@ interface GroupChatModalProps {
 }
 
 const GroupChatModal : React.FC<GroupChatModalProps> = ({isOpen, onClose , users}) => {
-    console.log('users' , users);
     const router = useRouter()
     const [isLoading,setIsLoading] = React.useState(false);
     const {register , handleSubmit , setValue , watch , formState : { errors }} 

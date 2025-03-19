@@ -12,8 +12,6 @@ interface ModalProps {
 
 const Modal : React.FC<ModalProps> = ({onClose , isOpen , children}) => {
 
-    console.log('Modal children:', children);
-
   return (
     <Transition show={isOpen} as={Fragment}>
         <Dialog onClose={onClose} as='div' className='relative z-50'>
