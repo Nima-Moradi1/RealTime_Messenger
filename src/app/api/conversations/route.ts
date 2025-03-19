@@ -44,9 +44,9 @@ export async function POST(request : Request) {
                     users : true
                 }
             })
-            newConversation.users.forEach((user)=> {
+            newConversation.users.forEach(async(user)=> {
                 if(user.email) {
-                 pusherServer.trigger(user.email,'conversations:new' , newConversation)
+                await pusherServer.trigger(user.email,'conversations:new' , newConversation)
                 }
             })
             return NextResponse.json(newConversation)
@@ -90,9 +90,9 @@ export async function POST(request : Request) {
             }
         }
     )
-    newConversation.users.map((user)=> {
+    newConversation.users.map(async (user)=> {
         if(user.email) {
-            pusherServer.trigger(user.email , 'conversations:new' , newConversation)
+            await pusherServer.trigger(user.email , 'conversations:new' , newConversation)
         }
     })
     return NextResponse.json(newConversation)
