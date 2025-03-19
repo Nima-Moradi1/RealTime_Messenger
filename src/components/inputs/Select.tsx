@@ -29,11 +29,12 @@ const Select : React.FC<SelectProps> = ({label , value , onChange , options , di
                 menuPortal : (base) => ({
                     ...base , 
                     zIndex : 9999 , 
-                    fontSize : '13px'
+                    fontSize : '13px' ,
+                    color : 'black'
                 })
             }}
             classNames={{
-                control : () => 'text-sm'
+                control : () => 'text-sm text-black'
             }}
             />
             

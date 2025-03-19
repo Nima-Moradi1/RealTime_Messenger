@@ -12,6 +12,7 @@ import { useSession } from "next-auth/react";
 import { pusherClient } from "@/libs/pusher";
 import { find } from "lodash";
 import { useRouter } from "next/navigation";
+import ThemeToggle from "@/components/sidebar/ThemeToggle";
 
 const ConversationList = ({initialItems , users}:{initialItems : FullConversationType[] , users : User[]}) => {
 
@@ -95,11 +96,14 @@ const ConversationList = ({initialItems , users}:{initialItems : FullConversatio
                 className='text-2xl font-bold text-foreground'>
                     Messages
                 </div>
-                <div onClick={()=> setIsModalOpen(true)}
+               <div className="flex items-center flex-row-reverse gap-x-4">
+               <div onClick={()=> setIsModalOpen(true)}
                  className="rounded-full  bg-gray-2/40 cursor-pointer
                 hover:opacity-70 transition">
                 <MdOutlineGroupAdd size={24}/>
                 </div>
+                <ThemeToggle />
+               </div>
             </div>
             {items?.map((item)=> (
                 <ConversationBox key={item.id} data={item} selected={conversationId === item.id}/>

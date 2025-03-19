@@ -51,7 +51,7 @@ const GroupChatModal : React.FC<GroupChatModalProps> = ({isOpen, onClose , users
     <Modal isOpen={isOpen} onClose={onClose} >
         <form onSubmit={handleSubmit(onSubmit)}>
             <div
-            className='space-y-12'>
+            className='space-y-12 pt-4'>
                 <div
                 className='border-b border-foreground/10 pb-12'>
                     <h2

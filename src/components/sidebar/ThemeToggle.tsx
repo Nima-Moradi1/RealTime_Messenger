@@ -26,10 +26,10 @@ const ThemeToggle = () => {
         onClick={()=>setTheme(theme === "light" ? "dark" : "light")}>
          {theme === "light" ? 
          <>
-         <LuSun className="size-7 my-5"/> 
+         <LuSun className="size-5 lg:size-7 lg:my-5"/> 
             </> :
              <>
-        <IoMoon className="size-7 my-5"/>
+        <IoMoon className="size-5 lg:size-7 lg:my-5"/>
 
              </>}
         </Button>

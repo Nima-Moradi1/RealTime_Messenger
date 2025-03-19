@@ -91,10 +91,10 @@ const AuthForm = () => {
 
   return (
     <div
-    className='mt-8 mx-4 sm:mx-auto sm:w-full sm:max-w-md'
+    className=' mx-4 sm:mx-auto sm:w-full sm:max-w-md bg-background pt-10 rounded-xl'
     >
         <h2
-            className='mb-6 text-center text-3xl font-bold tracking-tight text-foreground'
+            className='lg:mb-6 -mt-10 lg:-mt-0 text-center text-3xl font-bold tracking-tight text-foreground'
             >
                 {variant === 'REGISTER' ? "Create an Account" : "Sign in to Your Account"}
             </h2>

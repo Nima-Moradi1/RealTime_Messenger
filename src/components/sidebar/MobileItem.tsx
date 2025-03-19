@@ -22,7 +22,7 @@ const MobileItem : React.FC<MobileItemProps> = ({label , icon:Icon , href , onCl
   return (
     <Link
     className={clsx(`
-        group flex gap-x-3 text-sm leading-6 font-semibold rounded-lg
+        group flex gap-x-3 text-sm leading-6 font-semibold rounded-r-lg
         w-full justify-center p-4 hover:text-foreground hover:bg-gray-2
         ` , 
     active && "bg-gray-2 text-foreground"
