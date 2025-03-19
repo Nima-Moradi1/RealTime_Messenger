@@ -27,7 +27,7 @@ const Button : React.FC<ButtonProps> = ({type,fullWidth,children,onClick,seconda
     disabled && "opacity-50 cursor-not-allowed" , 
     !disabled && "cursor-pointer" ,
     fullWidth && "w-full" , 
-    danger && "bg-destructive/90 hover:bg-destructive focus-visible:outline-destructive" , 
+    danger && "bg-destructive/90 hover:bg-destructive focus-visible:outline-destructive text-white" , 
     secondary ? "text-foreground" : "text-primary-foreground" ,
     !secondary && !danger && "bg-primary/90 hover:bg-primary focus-visible:outline-primary"
     )}
