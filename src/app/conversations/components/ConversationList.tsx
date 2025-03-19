@@ -102,7 +102,10 @@ const ConversationList = ({initialItems , users}:{initialItems : FullConversatio
                 hover:opacity-70 transition">
                 <MdOutlineGroupAdd size={24}/>
                 </div>
+                <div className="lg:hidden">
                 <ThemeToggle />
+                </div>
+               
                </div>
             </div>
             {items?.map((item)=> (
