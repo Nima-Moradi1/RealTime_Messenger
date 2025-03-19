@@ -37,12 +37,9 @@ const MessageBox : React.FC<MessageBoxProps> = ({data , isLast}) => {
             <Avatar user={data?.sender}/>
         </div>
         <div className={body}>
-            <div className='flex flex-col items-center gap-1'>
+            <div className='flex flex-col items-start gap-1'>
             <div className='text-sm text-foreground/70'>
             {data?.sender?.name}
-            </div>
-            <div className='text-xs text-gray'>
-                {format(new Date(data?.createdAt) , 'p')}
             </div>
             </div>
             <div className={message}>
@@ -54,7 +51,12 @@ const MessageBox : React.FC<MessageBoxProps> = ({data , isLast}) => {
                     src={data?.image}
                     className='object-cover hover:scale-105 transition translate cursor-pointer' />
                 ) : 
-                <p>{data?.body}</p>
+                <div className='p-1 px-3'>
+                    {data?.body}
+                    <div className='text-[9px] mt-1 text-gray'>
+                {format(new Date(data?.createdAt) , 'p')}
+            </div>
+                </div>
                 }
             </div>
             {isLast && isOwn && seenList.length > 0 && (
