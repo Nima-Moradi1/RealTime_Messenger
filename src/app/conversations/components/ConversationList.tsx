@@ -11,10 +11,12 @@ import { User } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import { pusherClient } from "@/libs/pusher";
 import { find } from "lodash";
+import { useRouter } from "next/navigation";
 
 const ConversationList = ({initialItems , users}:{initialItems : FullConversationType[] , users : User[]}) => {
 
     const [items , setItems] = useState(initialItems);
+    const router = useRouter()
     const [isModalOpen , setIsModalOpen] = useState(false) ;
     const session = useSession()
     const {conversationId,isOpen} = useConversation()
@@ -34,21 +36,33 @@ const ConversationList = ({initialItems , users}:{initialItems : FullConversatio
             })
         }
         const updateHandler = (conversation : FullConversationType) => {
-            setItems((current)=>
-                current.map((currentConversation)=> {
-                    if(currentConversation.id === conversation.id) {
-                        return {
-                            ...conversation , 
-                            messages : conversation.messages
-                        }
-                    }
-                    return currentConversation ;
-                })
-            )
+            setItems((current) => current.map((currentConversation) => {
+                if (currentConversation.id === conversation.id) {
+                  return {
+                    ...currentConversation,
+                    messages: conversation.messages
+                  }
+                }
+        
+                return currentConversation;
+              }))
+            };
+            
+        const removeHandler = (conversation : FullConversationType) => {
+            setItems((current) => {
+              return [...current.filter((conv)=> conv.id !== conversation.id)]
+            })
+            //Push user to /conversations to remove chat from screen
+            if(conversationId === conversation.id) {
+                router.push('/conversations')
+            }
         }
+        
+
         pusherClient.subscribe(pusherKey);
         pusherClient.bind('conversations:new' , newHandler) ;
-        pusherClient.bind('conversations:update' , updateHandler)
+        pusherClient.bind('conversations:update' , updateHandler) ;
+        pusherClient.bind('conversation:remove' , removeHandler);
 
         
 
@@ -56,10 +70,11 @@ const ConversationList = ({initialItems , users}:{initialItems : FullConversatio
         return () => {
             pusherClient.unsubscribe(pusherKey);
             pusherClient.unbind('conversations:new' , newHandler);
-            pusherClient.unbind('conversations:update' , updateHandler)
+            pusherClient.unbind('conversations:update' , updateHandler);
+            pusherClient.unbind('conversation:remove' , removeHandler);
 
         }
-    },[pusherKey])
+    },[pusherKey , conversationId , router])
 
   return (
     <><GroupChatModal users={users} isOpen={isModalOpen} onClose={()=> setIsModalOpen(false)}/>
