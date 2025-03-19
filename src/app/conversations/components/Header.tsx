@@ -8,6 +8,7 @@ import React, { useMemo } from 'react'
 import { HiChevronLeft, HiEllipsisHorizontal } from 'react-icons/hi2'
 import ProfileDrawer from './ProfileDrawer'
 import AvatarGroup from '@/components/AvatarGroup'
+import useActiveList from '@/hooks/useActive'
 
 interface HeaderProps {
     conversation : Conversation & {
@@ -19,14 +20,15 @@ const Header : React.FC<HeaderProps> = ({conversation}) => {
 
     const otherUser = useOtherUser(conversation)
     const [drawerOpen , setDrawerOpen] = React.useState<boolean>(false)
+    const {members} = useActiveList()
+    const isActive = members.indexOf(otherUser.email!) !== -1 ; 
 
     const statusText = useMemo(()=> {
         if(conversation.isGroup) {
             return `${conversation.users.length} Members`
         }
-        //It's hard-coded for now , later we'll make it dynamic
-        return "Active"
-    },[conversation])
+        return isActive ? "Active" : "Offline"
+    },[conversation , isActive])
 
 
   return (
@@ -50,7 +52,7 @@ const Header : React.FC<HeaderProps> = ({conversation}) => {
             <div>
                 {conversation?.name || otherUser?.name}
             </div>
-            <div className='text-sm font-light text-foreground/60'>
+            <div className={` ${isActive ? "text-green-700" : "text-foreground/60" } text-sm font-light `}>
                 {statusText}
             </div>
         </div>
