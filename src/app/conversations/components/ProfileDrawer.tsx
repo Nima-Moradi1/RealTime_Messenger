@@ -10,6 +10,7 @@ import Avatar from '@/components/Avatar';
 import ConfirmModal from './ConfirmModal';
 import Button from '@/components/Button';
 import AvatarGroup from '@/components/AvatarGroup';
+import useActiveList from '@/hooks/useActive';
 
 
 interface ProfileDrawerProps {
@@ -21,8 +22,11 @@ interface ProfileDrawerProps {
 }
 
 const ProfileDrawer : React.FC<ProfileDrawerProps> = ({isOpen,data,onClose}) => {
+    const {members} = useActiveList()
+    console.log(members);
     const [confirmOpen , setConfirmOpen] = React.useState(false)
     const otherUser = useOtherUser(data)
+    const isActive = members.indexOf(otherUser.email!) !== -1
     const joinedDate = useMemo(()=> {
         return format(new Date(otherUser.createdAt), 'PP')
     },[otherUser.createdAt])
@@ -33,8 +37,8 @@ const ProfileDrawer : React.FC<ProfileDrawerProps> = ({isOpen,data,onClose}) => 
         if(data.isGroup){
             return `${data?.users?.length} Members`
         }
-        return 'Active'
-    },[data])
+        return isActive ? 'Active' : "Offline"
+    },[data , isActive])
 
 
   return (
@@ -97,7 +101,7 @@ const ProfileDrawer : React.FC<ProfileDrawerProps> = ({isOpen,data,onClose}) => 
                                     <div>
                                     {title}
                                     </div>
-                                    <div className='text-sm text-foreground/70'>
+                                    <div className={` ${isActive ? "text-green-600" : "text-foreground/70" } text-sm `}>
                                     {statusText}
                                     </div>
                                     <div className='w-full pb-5 pt-5 sm:px-0 sm:pt-0'>
@@ -115,7 +119,13 @@ const ProfileDrawer : React.FC<ProfileDrawerProps> = ({isOpen,data,onClose}) => 
                                                     {data?.users?.map((user)=> (
                                                         <div key={user?.id}
                                                         className='flex flex-col gap-2 font-semibold'>
-                                                            {user?.email}
+                                                            <div className='flex items-center justify-between gap-x-4'>
+                                                            <span>{user?.email}</span>
+                                                            <span className={`${members?.includes(user.email!) ? "text-green-600" : "text-foreground/60" } `}>
+                                                                {members?.includes(user.email!) ? 'Active' : "Offline"}
+                                                            </span>
+                                                            </div>
+                                                           
                                                         </div>
                                                     ))}
                                                 </dd>
