@@ -32,6 +32,7 @@ const Input : React.FC<InputProps> = ({label,id,type,required,register,errors,di
         <input 
         className={clsx(`
             form-input
+            text-black
             block 
             w-full
             rounded-lg

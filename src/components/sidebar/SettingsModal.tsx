@@ -72,8 +72,10 @@ const SettingsModal : React.FC<SettingsModalProps> = ({isOpen , onClose , curren
                 >Photo
                 </label>
                 <div className='mt-2 flex items-center gap-x-3'>
-                <Image width={60} height={60} className='rounded-full'
+                <div className='flex items-center justify-center relative size-20 rounded-full border border-gray p-2'>
+                <Image fill className='object-fill rounded-full'
                  alt='upload' src={image || currentUser?.image || '/images/placeholder.jpg'}/>
+                </div>
                  <CldUploadButton options={{maxFiles : 1}}
                  onSuccess={handleUpload}
                  uploadPreset='dubh24hb'
