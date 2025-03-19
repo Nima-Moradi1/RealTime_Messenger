@@ -3,6 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import ToasterContext from "@/providers/ToasterContext";
 import AuthContext from "@/context/AuthContext";
+import ActiveStatus from "@/components/ActiveStatus";
 
 
 export const metadata: Metadata = {
@@ -21,6 +22,7 @@ export default function RootLayout({
         <ThemeProvider defaultTheme="light" enableSystem attribute="class">
           <AuthContext>
         <ToasterContext/>
+        <ActiveStatus />
         {children}
           </AuthContext>
         </ThemeProvider>
