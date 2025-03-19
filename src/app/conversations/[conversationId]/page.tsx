@@ -6,9 +6,10 @@ import Header from '../components/Header'
 import Body from '../components/Body'
 import Form from '../components/Form'
 
+type Params = { conversationId: string };
 
 
-const SingleConversation = async ({params}: { params: { conversationId: string } }) => {
+const SingleConversation = async ({params}: { params: Promise<Params> }) => {
   const {conversationId} = await params
   const conversation = await getConversationById(conversationId)
   const messages = await getMessages(conversationId)

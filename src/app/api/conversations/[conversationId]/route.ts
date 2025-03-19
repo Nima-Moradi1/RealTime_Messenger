@@ -3,18 +3,15 @@ import { NextResponse } from "next/server";
 import prisma from '@/libs/prismadb'
 import { pusherServer } from "@/libs/pusher";
 
+type Params = { conversationId: string };
 
-interface IParams {
-    conversationId ? : string
-}
-
-export async function DELETE(reuqest:Request , {params} : {params : IParams}){
+export async function DELETE(reuqest:Request , {params} : {params : Promise<Params>}){
     try {
         const {conversationId} = await params
         const currentUser = await getCurrentUser()
         if(!currentUser?.email || !currentUser?.id) {
             return new NextResponse('Unathorized' , {status : 401})
-        }
+        } 
         const existingConversation = await prisma?.conversation.findUnique({
             where  : {
                 id: conversationId

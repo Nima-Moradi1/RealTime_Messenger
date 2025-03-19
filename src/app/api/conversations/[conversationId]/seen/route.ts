@@ -4,11 +4,10 @@ import prisma from '@/libs/prismadb'
 import { pusherServer } from "@/libs/pusher";
 
 
-interface Iparams {
-    conversationId? : string
-}
+type Params = { conversationId: string };
 
-export async function POST(request:Request , {params} : {params : Iparams}){
+
+export async function POST(request:Request , {params} : {params : Promise<Params>}){
      try {
         const {conversationId} = await params ;
         const currentUser = await getCurrentUser()
