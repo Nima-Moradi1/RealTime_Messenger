@@ -6,6 +6,7 @@ import DesktopItem from "./DesktopItem"
 import { User } from "@prisma/client"
 import Avatar from "../Avatar"
 import SettingsModal from "./SettingsModal"
+import ThemeToggle from "./ThemeToggle"
 
 
 const DesktopSidebar = ({currentUser}:{currentUser:User}) => {
@@ -35,6 +36,7 @@ const DesktopSidebar = ({currentUser}:{currentUser:User}) => {
         </nav>
         <nav
         className="mt-4 flex flex-col justify-between items-center">
+            <ThemeToggle />
             <div onClick={()=>setIsOpen(true)}
             className="cursor-pointer transition hover:opacity-70"
             >
