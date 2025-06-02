@@ -1,24 +1,28 @@
-RealTime_Messenger By Nima
+# RealTime_Messenger
 
 A full-stack, real-time messaging web application built with modern technologies, including Next.js 15, TypeScript, MongoDB, Prisma, and Pusher.
 
-🚀 Features
-	•	Real-Time Messaging: Instant communication powered by Pusher.
-	•	Full-Stack Architecture: Robust backend with Prisma and MongoDB, and dynamic frontend with Next.js.
-	•	Type Safety: End-to-end type safety using TypeScript.
-	•	Scalable Design: Modular and maintainable codebase suitable for scaling.
-	•	Modern UI/UX: Responsive and intuitive user interface.
+## 🚀 Features
 
-🛠️ Tech Stack
-	•	Frontend: Next.js 15, React, TypeScript
-	•	Backend: Next.js API routes, Prisma ORM, MongoDB
-	•	Real-Time Communication: Pusher
-	•	Styling: Tailwind CSS
-	•	Authentication: NextAuth.js
-	•	Deployment: Vercel
+- **Real-Time Messaging**: Instant communication powered by Pusher.
+- **Full-Stack Architecture**: Robust backend with Prisma and MongoDB, and dynamic frontend with Next.js.
+- **Type Safety**: End-to-end type safety using TypeScript.
+- **Scalable Design**: Modular and maintainable codebase suitable for scaling.
+- **Modern UI/UX**: Responsive and intuitive user interface.
 
- 📁 Folder Structure
- RealTime_Messenger/
+## 🛠️ Tech Stack
+
+- **Frontend**: Next.js 15, React, TypeScript
+- **Backend**: Next.js API routes, Prisma ORM, MongoDB
+- **Real-Time Communication**: Pusher
+- **Styling**: Tailwind CSS
+- **Authentication**: NextAuth.js
+- **Deployment**: Vercel
+
+## 📁 Folder Structure
+
+```
+RealTime_Messenger/
 ├── pages/
 │   ├── api/
 │   │   └── pusher/           # API routes for Pusher events
@@ -41,33 +45,54 @@ A full-stack, real-time messaging web application built with modern technologies
 ├── package.json
 ├── postcss.config.mjs
 └── tsconfig.json
+```
 
+## 🚀 Getting Started
 
-🚀 Getting Started
-	1.	Clone the repository:
- git clone https://github.com/Nima-Moradi1/RealTime_Messenger.git
- cd RealTime_Messenger
+1. **Clone the repository:**
 
- 	2.	Install dependencies :
-  npm install
-  # or
-  yarn install
+   ```bash
+   git clone https://github.com/Nima-Moradi1/RealTime_Messenger.git
+   cd RealTime_Messenger
+   ```
 
-  	3.	Set up environment variables:
-Create a .env file in the root directory and add the necessary environment variables:
-DATABASE_URL=your_mongodb_connection_string
-NEXTAUTH_URL=your_nextauth_url
-PUSHER_APP_ID=your_pusher_app_id
-PUSHER_KEY=your_pusher_key
-PUSHER_SECRET=your_pusher_secret
-PUSHER_CLUSTER=your_pusher_cluster
+2. **Install dependencies:**
 
-Open http://localhost:3000 with your browser to see the result.
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-📸 Demo
+3. **Set up environment variables:**
 
-Check out the live demo: chatino.vercel.app
+   Create a `.env` file in the root directory and add the necessary environment variables:
 
-🤝 Contributing
+   ```env
+   DATABASE_URL=your_mongodb_connection_string
+   NEXTAUTH_URL=your_nextauth_url
+   PUSHER_APP_ID=your_pusher_app_id
+   PUSHER_KEY=your_pusher_key
+   PUSHER_SECRET=your_pusher_secret
+   PUSHER_CLUSTER=your_pusher_cluster
+   ```
+
+4. **Run the development server:**
+
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+   Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## 📸 Demo
+
+Check out the live demo: [chatino.vercel.app](https://chatino.vercel.app)
+
+## 🤝 Contributing
 
 Contributions are welcome! Please fork the repository and submit a pull request.
+
+
